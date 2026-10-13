@@ -1,0 +1,7 @@
+{"type":"launched"}
+{"type":"started","agentId":"a1","key":"k1","label":"build:A","phase":"Build"}
+{"type":"started","agentId":"a2","key":"k2","label":"build:B","phase":"Build"}
+{"type":"started","agentId":"a3","key":"k3","label":"build:C","phase":"Build"}
+{"type":"result","agentId":"a1","key":"k1","result":{"id":"A","files_changed":["src/a.ts — the fix"],"files_created":["`src/c.ts`"],"files_deleted":[],"touched_outside_list":[]}}
+{"type":"result","agentId":"a2","key":"k2","result":{"id":"B","files_changed":["src/a.ts:12"],"files_created":[{"path":"src/space name.ts"}],"files_deleted":["src/b.ts"],"touched_outside_list":["src/keep.ts - one import line"]}}
+{"type":"result","agentId":"a3","key":"k3","result":{"id":"C","files_changed":["src/ghost.ts"],"files_created":["tests/t/**"],"files_deleted":[],"touched_outside_list":[]}}

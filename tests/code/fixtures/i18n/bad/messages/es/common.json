@@ -1,0 +1,7 @@
+{
+  "save": "Save",
+  "greeting": "Hello {name}",
+  "count": "3",
+  "quote": "Don't forget",
+  "nested": { "a": "A", "b": "B" }
+}

@@ -1,0 +1,16 @@
+# Recipe: a broken one
+
+## Problem
+
+It has a problem.
+
+## Code
+
+```ts
+export const answer = 42;
+```
+
+## Rule
+
+The rule comes after the code, the traps are missing, and the next line mentions a Claude Code variable.
+Read ${CLAUDE_SKILL_DIR}/other.md for more.

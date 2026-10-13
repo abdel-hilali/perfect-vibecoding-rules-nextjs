@@ -1,0 +1,10 @@
+:root {
+  --surface: #fff;
+}
+.dark {
+  --surface: #000;
+}
+@theme {
+  --color-brand: #3366ff;
+  --color-surface: var(--surface);
+}

@@ -1,0 +1,20 @@
+# Code that does not parse
+
+```ts
+export function broken( {
+  return 1;
+}
+```
+
+```css
+:root {
+  --surface: #ffffff;
+```
+
+```json
+{ "scripts": { "build": "next build", } }
+```
+
+```ts
+export const fine: number = 1;
+```

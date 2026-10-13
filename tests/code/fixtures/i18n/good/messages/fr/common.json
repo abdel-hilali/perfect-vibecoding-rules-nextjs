@@ -1,0 +1,7 @@
+{
+  "save": "Enregistrer",
+  "greeting": "Bonjour {name}",
+  "items": "{count, plural, one {# élément} other {# éléments}}",
+  "steps": ["Planifier", "Construire"],
+  "nested": { "title": "N'arrêtez pas" }
+}

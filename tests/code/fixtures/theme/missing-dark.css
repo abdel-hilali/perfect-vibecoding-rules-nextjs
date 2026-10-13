@@ -1,0 +1,12 @@
+:root {
+  --surface: #fff;
+  --canvas: #f5f5f5;
+}
+.dark {
+  --surface: #000;
+}
+@layer base {
+  :root {
+    --link: navy;
+  }
+}

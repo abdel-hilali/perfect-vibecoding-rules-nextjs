@@ -1,0 +1,16 @@
+{
+  "name": "perfect-vibecoding-rules-nextjs",
+  "owner": {
+    "name": "abdel-hilali"
+  },
+  "description": "One plugin: battle-tested rules, skills, hooks and templates for vibe-coding Next.js apps with Claude Code.",
+  "plugins": [
+    {
+      "name": "perfect-vibecoding-rules-nextjs",
+      "source": "./",
+      "description": "Code rules, session hand-offs, working rules, parallel builders, dev-server keeper and quality gate for Next.js projects.",
+      "category": "development",
+      "tags": ["nextjs", "rules", "skills", "hooks", "templates"]
+    }
+  ]
+}

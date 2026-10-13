@@ -1,0 +1,26 @@
+{
+  "name": "perfect-vibecoding-rules-nextjs",
+  "displayName": "Perfect vibe-coding rules for Next.js",
+  "description": "Battle-tested rules for building Next.js apps with Claude Code: code rules, session hand-offs, working with the owner, parallel builder agents, a dev-server keeper and a quality gate. Ships skills, two safety hooks and project templates.",
+  "author": {
+    "name": "abdel-hilali"
+  },
+  "homepage": "https://github.com/abdel-hilali/perfect-vibecoding-rules-nextjs",
+  "repository": "https://github.com/abdel-hilali/perfect-vibecoding-rules-nextjs",
+  "license": "MIT",
+  "keywords": ["nextjs", "rules", "skills", "hooks", "templates", "workflow", "multi-agent", "quality-gate"],
+  "userConfig": {
+    "save_chats": {
+      "type": "boolean",
+      "title": "Save chats in the project",
+      "description": "Copy each session's transcript into the project folder below. The folder ignores itself in git. Transcripts can hold secrets: never commit or share it.",
+      "default": true
+    },
+    "chats_dir": {
+      "type": "string",
+      "title": "Chats folder",
+      "description": "Folder, relative to the project root, that receives the transcript copies.",
+      "default": "claude-chats"
+    }
+  }
+}

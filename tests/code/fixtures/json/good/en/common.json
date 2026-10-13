@@ -1,0 +1,6 @@
+{
+  "title": "Home",
+  "page": { "title": "Projects" },
+  "say \"hi\"": "Hi",
+  "list": [{ "title": "One" }, { "title": "Two" }]
+}

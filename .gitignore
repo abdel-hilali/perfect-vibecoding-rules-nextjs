@@ -1,0 +1,18 @@
+# Chat transcripts saved by the save-chat hook while you work on the kit. They can hold secrets: never commit them.
+claude-chats/
+# Working files: briefs, reports, logs and backups (the kit's rules keep them in runs/<topic>/).
+runs/
+# Local secrets and personal Claude Code settings.
+.env
+.env.*
+.claude/settings.local.json
+CLAUDE.local.md
+# Packages a contributor installs for the optional test legs (ESLint, TypeScript).
+node_modules/
+# Python, OS and editor noise.
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+*.swp
+*~

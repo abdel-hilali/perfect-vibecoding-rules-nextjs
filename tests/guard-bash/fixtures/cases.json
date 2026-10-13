@@ -1,0 +1,876 @@
+[
+ {
+  "name": "plain pkill -f",
+  "command": "pkill -f next-server",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "pkill --full",
+  "command": "pkill --full \"node server.js\"",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "short group -fx",
+  "command": "pkill -fx node",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "short group -if",
+  "command": "pkill -if vite",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "signal then -f",
+  "command": "pkill -9 -f \"next dev\"",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "-f after the pattern",
+  "command": "pkill node -f",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "long option abbreviated",
+  "command": "pkill --ful node",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "after cd and &&",
+  "command": "cd app && pkill -f next || true",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "second command after ;",
+  "command": "echo stopping; pkill -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "on a later line",
+  "command": "cd /srv/app\npkill -f worker\necho done",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "path prefix",
+  "command": "/usr/bin/pkill -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "backslash alias bypass",
+  "command": "\\pkill -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "quoted command word",
+  "command": "\"pkill\" -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "sudo",
+  "command": "sudo pkill -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "sudo -u user --",
+  "command": "sudo -u deploy -- pkill -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "env with assignment",
+  "command": "env FOO=1 pkill -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "nohup in background",
+  "command": "nohup pkill -f worker &",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "timeout with signal option",
+  "command": "timeout -s KILL 5 pkill -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "nice -n",
+  "command": "nice -n 10 pkill -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "command builtin",
+  "command": "command pkill -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "exec",
+  "command": "exec pkill -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "time keyword",
+  "command": "time pkill -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "leading assignments",
+  "command": "A=1 B=2 pkill -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "bash -c",
+  "command": "bash -c \"pkill -f worker\"",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "sh -c after sleep",
+  "command": "sh -c 'sleep 1; pkill -f worker'",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "zsh -lc",
+  "command": "zsh -lc 'pkill -f worker'",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "bash -o pipefail -c",
+  "command": "bash -o pipefail -c 'pkill -f worker'",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "eval",
+  "command": "eval \"pkill -f worker\"",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "nested bash -c twice",
+  "command": "bash -c \"sh -c 'pkill -f worker'\"",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "inside $( )",
+  "command": "echo $(pkill -f worker)",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "inside backticks",
+  "command": "echo `pkill -f worker`",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "backticks inside double quotes run",
+  "command": "git commit -m \"stop `pkill -f worker`\"",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "subshell",
+  "command": "(cd app && pkill -f worker)",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "brace group",
+  "command": "{ pkill -f worker; }",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "if body",
+  "command": "if true; then pkill -f worker; fi",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "for loop body",
+  "command": "for n in a b; do pkill -f \"worker-$n\"; done",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "while loop body",
+  "command": "while true; do pkill -f worker; sleep 1; done",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "case branch",
+  "command": "case $1 in stop) pkill -f worker;; esac",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "function body",
+  "command": "stop() { pkill -f worker; }; stop",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "xargs pkill -f",
+  "command": "printf 'a\\nb\\n' | xargs pkill -f",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "heredoc fed to bash",
+  "command": "bash <<'EOF'\npkill -f worker\nEOF",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "here-string fed to sh",
+  "command": "sh <<< 'pkill -f worker'",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "echo piped to bash",
+  "command": "echo 'pkill -f worker' | bash",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "unquoted heredoc runs its backticks",
+  "command": "cat <<EOF > notes.txt\nstopped: `pkill -f worker`\nEOF",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "unterminated quote still read",
+  "command": "pkill -f \"worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "watch runs a shell string",
+  "command": "watch -n 5 pkill -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "setsid wrapper",
+  "command": "setsid pkill -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "after [[ ]] &&",
+  "command": "[[ -n $DEBUG ]] && pkill -f worker",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "kill $(pgrep -f)",
+  "command": "kill $(pgrep -f next-server)",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "kill -9 quoted sub",
+  "command": "kill -9 \"$(pgrep -f 'next dev')\"",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "kill backticks",
+  "command": "kill `pgrep -f worker`",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "pgrep -f | xargs kill",
+  "command": "pgrep -f worker | xargs kill",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "xargs -r kill -9",
+  "command": "pgrep -f worker | xargs -r kill -9",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "xargs -I{} kill {}",
+  "command": "pgrep -f worker | xargs -I{} kill {}",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "xargs sh -c kill",
+  "command": "pgrep --full worker | xargs sh -c 'kill \"$@\"' _",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "variable then kill",
+  "command": "pid=$(pgrep -f worker); kill \"$pid\"",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "variable with head, then kill",
+  "command": "PIDS=$(pgrep -f worker | head -1) && kill -TERM $PIDS",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "for over pgrep -f",
+  "command": "for p in $(pgrep -f worker); do kill $p; done",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "pipe into while read",
+  "command": "pgrep -f worker | while read p; do kill \"$p\"; done",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "done < <(pgrep -f)",
+  "command": "while read p; do kill \"$p\"; done < <(pgrep -f worker)",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "inside sh -c",
+  "command": "sh -c 'kill $(pgrep -f worker)'",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "/bin/kill",
+  "command": "/bin/kill $(pgrep -f worker)",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "loop over a variable of pgrep -f PIDs",
+  "command": "pids=$(pgrep -f x); for p in $pids; do kill $p; done",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "while read from a here-string",
+  "command": "pids=$(pgrep -f x); while read p; do kill $p; done <<< \"$pids\"",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "while read from an unquoted heredoc",
+  "command": "pids=$(pgrep -f x); while read p; do kill $p; done <<EOF\n$pids\nEOF",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "variable echoed into xargs kill",
+  "command": "pids=$(pgrep -f x); echo $pids | xargs kill",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "array of pgrep -f PIDs",
+  "command": "P=($(pgrep -f x)); kill \"${P[@]}\"",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "declare -a array",
+  "command": "declare -a P=($(pgrep -f x)); kill ${P[*]}",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "read from a process substitution",
+  "command": "read -r P < <(pgrep -f x); kill $P",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "mapfile from a process substitution",
+  "command": "mapfile -t P < <(pgrep -f x); kill \"${P[@]}\"",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "read from a heredoc",
+  "command": "pids=$(pgrep -f x); read P <<EOF\n$pids\nEOF\nkill $P",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "xargs kill fed by a process substitution",
+  "command": "xargs kill < <(pgrep -f worker)",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "xargs kill fed by a here-string",
+  "command": "xargs kill <<< \"$(pgrep -f worker)\"",
+  "expect": "deny",
+  "kind": "pgrep"
+ },
+ {
+  "name": "cat heredoc piped to bash",
+  "command": "cat <<'EOF' | bash\npkill -f worker\nEOF",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "cat - heredoc piped to bash",
+  "command": "cat - <<'EOF' | bash\npkill -f worker\nEOF",
+  "expect": "deny",
+  "kind": "pkill"
+ },
+ {
+  "name": "read from pgrep -f, then only echo",
+  "command": "read -r line < <(pgrep -f x); echo \"$line\"",
+  "expect": "none"
+ },
+ {
+  "name": "array of PIDs from a pid file",
+  "command": "P=($(cat /tmp/app.pid)); kill \"${P[@]}\"",
+  "expect": "none"
+ },
+ {
+  "name": "variable of pgrep -f PIDs counted",
+  "command": "pids=$(pgrep -f x); echo \"$pids\" | wc -l",
+  "expect": "none"
+ },
+ {
+  "name": "harmless cat heredoc piped to bash",
+  "command": "cat <<'EOF' | bash\necho hello\nEOF",
+  "expect": "none"
+ },
+ {
+  "name": "quoted heredoc keeps $pids literal",
+  "command": "pids=$(pgrep -f x); while read p; do kill $p; done <<'EOF'\n$pids\nEOF",
+  "expect": "none"
+ },
+ {
+  "name": "unquoted heredoc loop that only echoes",
+  "command": "pids=$(pgrep -f x); while read p; do echo $p; done <<EOF\n$pids\nEOF",
+  "expect": "none"
+ },
+ {
+  "name": "grep for the phrase",
+  "command": "grep \"pkill -f\" notes.md",
+  "expect": "none"
+ },
+ {
+  "name": "echo the phrase",
+  "command": "echo \"never pkill -f\"",
+  "expect": "none"
+ },
+ {
+  "name": "printf the phrase",
+  "command": "printf '%s\\n' 'pkill -f worker'",
+  "expect": "none"
+ },
+ {
+  "name": "commit message in single quotes",
+  "command": "git commit -m 'docs: never use pkill -f'",
+  "expect": "none"
+ },
+ {
+  "name": "quoted heredoc to a file",
+  "command": "cat <<'EOF' > notes.md\nNever run pkill -f here.\nkill $(pgrep -f worker)\nEOF",
+  "expect": "none"
+ },
+ {
+  "name": "heredoc to python",
+  "command": "python3 - <<'EOF'\nprint('pkill -f worker')\nEOF",
+  "expect": "none"
+ },
+ {
+  "name": "node -e string",
+  "command": "node -e \"console.log('pkill -f worker')\"",
+  "expect": "none"
+ },
+ {
+  "name": "pgrep -f alone",
+  "command": "pgrep -f worker",
+  "expect": "none"
+ },
+ {
+  "name": "pgrep -fl alone",
+  "command": "pgrep -fl node",
+  "expect": "none"
+ },
+ {
+  "name": "pgrep -f to check",
+  "command": "pgrep -f worker && echo running",
+  "expect": "none"
+ },
+ {
+  "name": "pgrep -f in an if",
+  "command": "if pgrep -f worker >/dev/null; then echo up; fi",
+  "expect": "none"
+ },
+ {
+  "name": "pgrep -f counted",
+  "command": "pgrep -f worker | wc -l",
+  "expect": "none"
+ },
+ {
+  "name": "pkill -F pidfile",
+  "command": "pkill -F /tmp/app.pid",
+  "expect": "none"
+ },
+ {
+  "name": "pkill -9 by name",
+  "command": "pkill -9 node",
+  "expect": "none"
+ },
+ {
+  "name": "pkill by name",
+  "command": "pkill node",
+  "expect": "none"
+ },
+ {
+  "name": "pkill -u user",
+  "command": "pkill -u deploy node",
+  "expect": "none"
+ },
+ {
+  "name": "pkill -x exact name",
+  "command": "pkill -x node",
+  "expect": "none"
+ },
+ {
+  "name": "kill a PID",
+  "command": "kill 1234",
+  "expect": "none"
+ },
+ {
+  "name": "kill from a pid file",
+  "command": "kill $(cat /tmp/app.pid)",
+  "expect": "none"
+ },
+ {
+  "name": "pgrep without -f then kill",
+  "command": "pid=$(pgrep -x node); kill $pid",
+  "expect": "none"
+ },
+ {
+  "name": "comment holds the phrase",
+  "command": "ls -la # never pkill -f",
+  "expect": "none"
+ },
+ {
+  "name": "command -v pkill",
+  "command": "command -v pkill",
+  "expect": "none"
+ },
+ {
+  "name": "rg for a pattern",
+  "command": "rg -n 'pgrep -f .* | xargs kill' src",
+  "expect": "none"
+ },
+ {
+  "name": "ps listing matched by awk",
+  "command": "ps -eo pid=,args= | awk '$2 == \"node\" {print $1}'",
+  "expect": "none"
+ },
+ {
+  "name": "setsid -f is not pkill",
+  "command": "setsid -f node server.js",
+  "expect": "none"
+ },
+ {
+  "name": "kill -0 only tests a PID",
+  "command": "kill -0 $(pgrep -f worker) && echo alive",
+  "expect": "none"
+ },
+ {
+  "name": "pnpm build",
+  "command": "pnpm build",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "pnpm run build",
+  "command": "pnpm run build",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "npm run dev",
+  "command": "npm run dev",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "yarn start",
+  "command": "yarn start",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "pnpm test:e2e",
+  "command": "pnpm test:e2e",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "pnpm run test:e2e:real",
+  "command": "pnpm run test:e2e:real -- --project=chromium",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "pnpm --filter web build",
+  "command": "pnpm --filter web build",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "pnpm exec next build",
+  "command": "pnpm exec next build",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "npx next start -p",
+  "command": "npx next start -p 3000",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "node_modules/.bin/next dev",
+  "command": "node_modules/.bin/next dev",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "npx playwright test",
+  "command": "npx playwright test e2e/smoke.spec.ts",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "PORT= assignment",
+  "command": "PORT=3000 node server.js",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "names :port after a host",
+  "command": "curl -s localhost:3000/",
+  "expect": "note",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "--port N",
+  "command": "node app.js --port 3000",
+  "expect": "note",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "--port=N",
+  "command": "node app.js --port=3000",
+  "expect": "note",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "-p N names the port",
+  "command": "node app.js -p 3000",
+  "expect": "note",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "ss names the port",
+  "command": "ss -ltnp 'sport = :3000'",
+  "expect": "note",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "lsof names the port",
+  "command": "lsof -nP -iTCP:3000 -sTCP:LISTEN",
+  "expect": "note",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "fuser names the port",
+  "command": "fuser 3000/tcp",
+  "expect": "note",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "next dev -p N takes the port",
+  "command": "next dev -p 3000",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "a probe, then a build",
+  "command": "curl -s localhost:3000/ && pnpm build",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "a build, then a probe",
+  "command": "pnpm build && curl -s localhost:3000/",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "free-port.sh on another port",
+  "command": "scripts/tools/free-port.sh 3001",
+  "expect": "none",
+  "env": "port"
+ },
+ {
+  "name": "timeout wrapper",
+  "command": "timeout 900 pnpm build",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "inside bash -c",
+  "command": "bash -c \"pnpm build\"",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "piped build",
+  "command": "cd app && pnpm build 2>&1 | tail -20",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "free-port.sh on the port",
+  "command": "scripts/tools/free-port.sh 3000 --force",
+  "expect": "warn",
+  "env": "port",
+  "port": "3000"
+ },
+ {
+  "name": "port from tools.env",
+  "command": "pnpm build",
+  "expect": "warn",
+  "env": "project",
+  "port": "4321"
+ },
+ {
+  "name": "tools.env found through cwd",
+  "command": "pnpm build",
+  "expect": "warn",
+  "env": "cwd",
+  "port": "4321"
+ },
+ {
+  "name": "environment wins over tools.env",
+  "command": "pnpm build",
+  "expect": "warn",
+  "env": "project-env",
+  "port": "4100"
+ },
+ {
+  "name": "no port configured",
+  "command": "pnpm build",
+  "expect": "none",
+  "env": "none"
+ },
+ {
+  "name": "project without tools.env",
+  "command": "pnpm build",
+  "expect": "none",
+  "env": "project-empty"
+ },
+ {
+  "name": "pnpm lint",
+  "command": "pnpm lint",
+  "expect": "none",
+  "env": "port"
+ },
+ {
+  "name": "pnpm exec tsc",
+  "command": "pnpm exec tsc --noEmit",
+  "expect": "none",
+  "env": "port"
+ },
+ {
+  "name": "vitest on a file",
+  "command": "pnpm exec vitest run src/lib/a.test.ts",
+  "expect": "none",
+  "env": "port"
+ },
+ {
+  "name": "another port",
+  "command": "curl -s localhost:30001/",
+  "expect": "none",
+  "env": "port"
+ },
+ {
+  "name": "echo names the port",
+  "command": "echo \"open localhost:3000\"",
+  "expect": "none",
+  "env": "port"
+ },
+ {
+  "name": "other port from tools.env",
+  "command": "curl -s localhost:3000/",
+  "expect": "none",
+  "env": "project"
+ },
+ {
+  "name": "deny wins over the note",
+  "command": "pnpm build && pkill -f next",
+  "expect": "deny",
+  "kind": "pkill",
+  "env": "port"
+ }
+]

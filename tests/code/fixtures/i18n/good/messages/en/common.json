@@ -1,0 +1,7 @@
+{
+  "save": "Save",
+  "greeting": "Hello {name}",
+  "items": "{count, plural, one {# item} other {# items}}",
+  "steps": ["Plan", "Build"],
+  "nested": { "title": "Don't stop" }
+}

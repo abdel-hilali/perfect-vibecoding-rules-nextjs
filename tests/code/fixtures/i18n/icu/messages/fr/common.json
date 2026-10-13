@@ -1,0 +1,7 @@
+{
+  "page": "Page {0}",
+  "pageSame": "Page {0}",
+  "cart": "{count, plural, one {# article} other {# articles}}",
+  "who": "{gender, select, male {Il} female {Elle} other {On}} a répondu",
+  "quote": "C‘est fait"
+}

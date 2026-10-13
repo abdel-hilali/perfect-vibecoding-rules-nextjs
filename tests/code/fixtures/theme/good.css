@@ -1,0 +1,42 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Layer 1: the role sheet, light. Every literal colour has a .dark twin. */
+:root, .light {
+  --surface: #ffffff;
+  --on-surface: oklch(0.2 0 0);
+  --primary: rgb(51 102 255);
+  --elevation-1: 0 1px 2px rgb(0 0 0 / 0.2);
+  --brand-ink: white;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --surface: #121212;
+  --on-surface: oklch(0.95 0 0);
+  --primary: rgb(200 180 255);
+  --elevation-1: 0 1px 2px rgb(0 0 0 / 0.6);
+  --brand-ink: black;
+}
+
+/* Layer 2: aliases, declared once; the role underneath flips. */
+:root {
+  --background: var(--surface);
+  --foreground: var(--on-surface);
+  --white-ish: var(--surface);
+  --grain: url("data:image/svg+xml,<svg fill='white'/>");
+}
+
+/* Layer 3: the Tailwind export. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-*: initial;
+}
+
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+}

@@ -1,0 +1,12 @@
+---
+name: recipes
+description: Some recipes without the trigger phrase.
+version: 2
+---
+
+# Recipes
+
+| Recipe | Open it when |
+| --- | --- |
+| [broken.md](broken.md) | Never. |
+| [missing.md](missing.md) | This file does not exist. |

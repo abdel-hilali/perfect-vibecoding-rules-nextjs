@@ -1,0 +1,8 @@
+{
+  "save": "Enregistrer",
+  "greeting": "Bonjour {nom}",
+  "count": 3,
+  "quote": "N’oubliez pas",
+  "nested": { "a": "A" },
+  "extra": "En trop"
+}

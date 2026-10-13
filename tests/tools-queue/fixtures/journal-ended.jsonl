@@ -1,0 +1,2 @@
+{"type":"result","agentId":"a1","key":"k1","result":{"id":"A","status":"done","files_changed":["src/a.ts"],"files_created":[],"files_deleted":[],"touched_outside_list":[]}}
+{"type":"error","agentId":"a2","key":"k2","error":"agent stopped: out of memory"}
