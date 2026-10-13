@@ -1,0 +1,1 @@
+# perfect-vibecoding-rules-nextjs
